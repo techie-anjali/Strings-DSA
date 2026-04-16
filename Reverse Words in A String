@@ -1,0 +1,40 @@
+class Solution {
+    public String reverseWords(String s) {
+        char[] arr = s.toCharArray();
+        int n = arr.length;
+
+        reverse(arr, 0, n-1);  //Reverse the whole string
+        int i=0;
+        int l=0, r=0;
+
+        while(i<n){
+            while(i<n && arr[i] == ' '){ //Skip spaces
+                i++;
+            }
+            while(i<n && arr[i] != ' '){
+                arr[r++] = arr[i++]; //Copy characters word
+            }
+            //If i see char r ko de dega and i++ aur r++ hoga
+            if(l<r){
+                reverse(arr, l, r-1);  //Reverse the word
+                if(r<n){
+                    arr[r++] = ' '; //Add single space
+                }
+                l=r;
+            }
+        }
+        if(r>0 && arr[r-1] == ' '){
+            r--;  //Remove last space
+        }
+        return new String(arr, 0, r);
+    }
+    public void reverse(char[] arr, int start, int end){
+        while(start<end){
+            char temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
